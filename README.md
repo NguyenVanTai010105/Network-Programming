@@ -16,9 +16,12 @@ Dự án nhằm giúp sinh viên hiểu rõ hơn về:
 ---
 
 ## 👥 Danh sách thành viên
-- Nguyễn Văn Tài – K23CNTT2  
-- Lê Văn Sông – K23CNTT2  
-*(Có thể bổ sung thêm nếu có)*
+- Nguyễn Văn Tài – 3120223173
+- Hồ Công Duy - 3120223038
+- Nguyễn Lộc Khải-3120223087
+- Đặng Bảo Ngọc- 3120223129
+- Đặng Duy Khánh-3120223091
+
 
 ---
 
