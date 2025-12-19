@@ -85,9 +85,7 @@ class ServerThread(QtCore.QThread):
         self.is_running = False
         self.wait()
 
-# ==========================================
-# PHẦN 2: GUI
-# ==========================================
+
 THEME = {
     "bg_main": "#f4f6f9", "bg_card": "#ffffff", "border_card": "#e1e4e8",
     "text_main": "#2c3e50", "text_dim": "#7f8c8d",
@@ -158,30 +156,7 @@ class AgentWindow(QtWidgets.QMainWindow):
         l_layout.addWidget(self.txt_log)
         layout.addWidget(log_frame, stretch=1)
 
-    def toggle_server(self):
-        if self.server_thread is not None:
-            self.server_thread.stop()
-            self.server_thread = None
-            self.btn_toggle.setText("START SERVER"); self.btn_toggle.setStyleSheet(f"background-color: {THEME['success']}; color: white;")
-            self.txt_port.setEnabled(True)
-        else:
-            try:
-                p = int(self.txt_port.text())
-                self.server_thread = ServerThread(p)
-                self.server_thread.log_signal.connect(self.log)
-                self.server_thread.error_signal.connect(self.log_err)
-                self.server_thread.start()
-                self.btn_toggle.setText("STOP SERVER"); self.btn_toggle.setStyleSheet(f"background-color: {THEME['danger']}; color: white;")
-                self.txt_port.setEnabled(False)
-            except Exception as e:
-                QtWidgets.QMessageBox.critical(self, "Error", f"Invalid Port: {str(e)}")
-
-    def log(self, msg):
-        self.txt_log.appendPlainText(msg)
-        self.txt_log.verticalScrollBar().setValue(self.txt_log.verticalScrollBar().maximum())
-
-    def log_err(self, msg):
-        self.txt_log.appendHtml(f"<font color='#c0392b'><b>[ERROR]</b> {msg}</font>")
+    
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
