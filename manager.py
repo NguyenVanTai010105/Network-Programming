@@ -38,7 +38,7 @@ class ManagerCore:
             return False, {'error': 'Timeout'}, 0
         except Exception as e:
             return False, {'error': str(e)}, 0
-
+# sử dụng class qrunnable
 class NetWorker(QtCore.QRunnable):
     def __init__(self, cmd, host, port, signal_emitter):
         super().__init__()
@@ -48,7 +48,7 @@ class NetWorker(QtCore.QRunnable):
         ok, data, _ = ManagerCore.send_request(self.cmd, self.host, self.port)
         self.emitter.emit((self.cmd, ok, data))
 
-# --- [ĐIỂM THƯỞNG] CLASS XỬ LÝ CONCURRENCY & BENCHMARK ---
+# khác networker
 class BenchmarkWorker(QtCore.QThread):
     progress_signal = QtCore.pyqtSignal(int)
     result_signal = QtCore.pyqtSignal(dict)
@@ -80,7 +80,7 @@ class BenchmarkWorker(QtCore.QThread):
             "duration": duration, "rps": rps, "avg_lat": avg_lat
         })
 
-# --- PHẦN 2: WIDGET ĐỒNG HỒ TRÒN ---
+# đồng hồ tròn
 class CircularProgress(QtWidgets.QWidget):
     def __init__(self, title, color_hex, parent=None):
         super().__init__(parent)
