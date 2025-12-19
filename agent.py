@@ -112,7 +112,49 @@ class AgentWindow(QtWidgets.QMainWindow):
         self.server_thread = None
         self.init_ui()
 
-    
+    def init_ui(self):
+        central = QtWidgets.QWidget(); self.setCentralWidget(central)
+        layout = QtWidgets.QVBoxLayout(central); layout.setSpacing(15); layout.setContentsMargins(20,20,20,20)
+
+        # --- HEADER ---
+        head_frame = QtWidgets.QFrame(); head_frame.setProperty("class", "Card")
+        head_layout = QtWidgets.QVBoxLayout(head_frame); head_layout.setContentsMargins(20,20,20,20)
+        
+        head_layout.addSpacing(15)
+
+        ctrl_layout = QtWidgets.QHBoxLayout()
+        ctrl_layout.addWidget(QtWidgets.QLabel("Port:"))
+        self.txt_port = QtWidgets.QLineEdit(str(AgentCore.DEFAULT_PORT)); self.txt_port.setFixedWidth(60); self.txt_port.setAlignment(QtCore.Qt.AlignCenter)
+        ctrl_layout.addWidget(self.txt_port)
+        
+        self.btn_toggle = QtWidgets.QPushButton("START SERVER")
+        self.btn_toggle.setStyleSheet(f"background-color: {THEME['success']}; color: white; border: none;")
+        self.btn_toggle.setCursor(QtCore.Qt.PointingHandCursor)
+        self.btn_toggle.clicked.connect(self.toggle_server)
+        ctrl_layout.addWidget(self.btn_toggle)
+        
+        head_layout.addLayout(ctrl_layout)
+        layout.addWidget(head_frame)
+
+        # --- LOG ---
+        log_frame = QtWidgets.QFrame(); log_frame.setProperty("class", "Card")
+        l_layout = QtWidgets.QVBoxLayout(log_frame); l_layout.setContentsMargins(15,15,15,15)
+        
+        top_log = QtWidgets.QHBoxLayout()
+        lbl_log = QtWidgets.QLabel("Request Logs")
+        lbl_log.setStyleSheet(f"font-weight: bold; color: {THEME['text_dim']};")
+        top_log.addWidget(lbl_log)
+        
+        btn_clear = QtWidgets.QPushButton("Clear")
+        btn_clear.setFixedSize(60, 25); btn_clear.setStyleSheet("font-size: 11px; padding: 2px;")
+        btn_clear.clicked.connect(lambda: self.txt_log.clear())
+        top_log.addWidget(btn_clear)
+        
+        l_layout.addLayout(top_log)
+        self.txt_log = QtWidgets.QPlainTextEdit(); self.txt_log.setReadOnly(True)
+        self.txt_log.setPlaceholderText("Waiting for connection from Manager...")
+        l_layout.addWidget(self.txt_log)
+        layout.addWidget(log_frame, stretch=1)
 
     def toggle_server(self):
         if self.server_thread is not None:
