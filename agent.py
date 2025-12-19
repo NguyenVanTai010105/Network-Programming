@@ -35,11 +35,11 @@ class AgentCore:
         # --- CƠ BẢN ---
         if cmd == 'GET ALL':
             return {
-                'cpu': psutil.cpu_percent(interval=1), 
+                'cpu': psutil.cpu_percent(interval=None), 
                 'ram': psutil.virtual_memory().percent
             }
         elif cmd == 'GET CPU':
-            return {'cpu': psutil.cpu_percent(interval=1)}
+            return {'cpu': psutil.cpu_percent(interval=None)}
         elif cmd == 'GET RAM':
             return {'ram': psutil.virtual_memory().percent}
         

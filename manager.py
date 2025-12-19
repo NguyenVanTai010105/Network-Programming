@@ -64,7 +64,7 @@ class BenchmarkWorker(QtCore.QThread):
         start_total = time.perf_counter()
 
         for i in range(self.total):
-            ok, _, lat = ManagerCore.send_request("GET ALL", self.host, self.port, timeout=0.5)
+            ok, _, lat = ManagerCore.send_request("GET ALL", self.host, self.port, timeout=3.0)
             if ok:
                 success += 1; total_latency += lat
             else:
